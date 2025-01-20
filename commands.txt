@@ -1,0 +1,9 @@
+mvn spring-boot:run
+
+mvn clean install -DskipTests
+
+mvn dependency:tree
+
+mvn dependency:build-classpath
+
+mvn spring-boot:run -X
