@@ -1,5 +1,24 @@
 -- Crear base de datos Literalura
-CREATE DATABASE literalura;
+CREATE ROLE literalura WITH
+	LOGIN
+	NOSUPERUSER
+	CREATEDB
+	NOCREATEROLE
+	INHERIT
+	NOREPLICATION
+	NOBYPASSRLS
+	CONNECTION LIMIT 500
+	PASSWORD 'xxxxxx';
+
+
+CREATE DATABASE literalura
+    WITH
+    OWNER = literalura
+    ENCODING = 'UTF8'
+    LOCALE_PROVIDER = 'libc'
+    CONNECTION LIMIT = -1
+    IS_TEMPLATE = False;
+
 
 -- Tabla de autores
 CREATE TABLE autores (
@@ -26,7 +45,3 @@ CREATE TABLE libros_autores (
     FOREIGN KEY (libro_id) REFERENCES libros(id) ON DELETE CASCADE,
     FOREIGN KEY (autor_id) REFERENCES autores(id) ON DELETE CASCADE
 );
-
-
-
-

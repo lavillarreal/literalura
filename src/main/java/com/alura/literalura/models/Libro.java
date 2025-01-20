@@ -19,7 +19,7 @@ public class Libro {
     private String idioma;
 
     @Column(nullable = false)
-    private int numeroDescargas = 0;
+    private int numero_descargas = 0;
 
     @ManyToMany
     @JoinTable(
@@ -55,12 +55,12 @@ public class Libro {
         this.idioma = idioma;
     }
 
-    public int getNumeroDescargas() {
-        return numeroDescargas;
+    public int getnumero_descargas() {
+        return numero_descargas;
     }
 
-    public void setNumeroDescargas(int numeroDescargas) {
-        this.numeroDescargas = numeroDescargas;
+    public void setnumero_descargas(int numero_descargas) {
+        this.numero_descargas = numero_descargas;
     }
 
     public List<Autor> getAutores() {
