@@ -8,6 +8,6 @@ class LiteraluraApplicationTests {
 
 	@Test
 	void contextLoads() {
+		// Test vacío para verificar la carga del contexto
 	}
-
 }
