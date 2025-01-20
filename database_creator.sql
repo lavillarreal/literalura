@@ -45,3 +45,15 @@ CREATE TABLE libros_autores (
     FOREIGN KEY (libro_id) REFERENCES libros(id) ON DELETE CASCADE,
     FOREIGN KEY (autor_id) REFERENCES autores(id) ON DELETE CASCADE
 );
+
+GRANT ALL PRIVILEGES ON DATABASE literalura TO literalura;
+
+GRANT ALL PRIVILEGES ON TABLE autores TO literalura;
+
+GRANT ALL PRIVILEGES ON TABLE libros TO literalura;
+
+ALTER TABLE libros_autores OWNER TO literalura;
+
+ALTER TABLE autores OWNER TO literalura;
+
+ALTER TABLE libros OWNER TO literalura;

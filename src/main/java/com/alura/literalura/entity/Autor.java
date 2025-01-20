@@ -1,8 +1,6 @@
-package com.alura.literalura.models;
+package com.alura.literalura.entity;
 
-import javax.persistence.*;
-import java.util.List;
-
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "autores")
@@ -12,20 +10,17 @@ public class Autor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 100)
+    @Column(name="nombre",  nullable = false, length = 100)
     private String nombre;
 
-    @Column(nullable = false, length = 100)
+    @Column(name="apellido", nullable = false, length = 100)
     private String apellido;
 
-    @Column(nullable = false)
+    @Column(name="birth", nullable = false)
     private int birth;
 
-    @Column(nullable = false)
+    @Column(name="death", nullable = false)
     private int death = 0;
-
-    @ManyToMany(mappedBy = "autores")
-    private List<Libro> libros;
 
     // Getters y Setters
 
@@ -67,13 +62,5 @@ public class Autor {
 
     public void setDeath(int death) {
         this.death = death;
-    }
-
-    public List<Libro> getLibros() {
-        return libros;
-    }
-
-    public void setLibros(List<Libro> libros) {
-        this.libros = libros;
     }
 }
