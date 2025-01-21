@@ -21,15 +21,39 @@ public class LiteraluraService {
     private AutoriaLibroRepository autoriaRepository;
 
     public void saveLibro(Libro libro) {
-        libroRepository.save(libro);
+        this.libroRepository.save(libro);
     }
 
     public void saveAutor(Autor autor) {
-        autorRepository.save(autor);
+        this.autorRepository.save(autor);
     }
 
     public void saveAutoria(AutoriaLibro autoria){
-        autoriaRepository.save(autoria);
+        this.autoriaRepository.save(autoria);
+    }
+
+    public LibroRepository getLibroRepository(){
+        return this.libroRepository;
+    }
+
+    public AutoriaLibroRepository getAutoriaRepository(){
+        return this.autoriaRepository;
+    }
+
+    public AutorRepository getAutorRepository(){
+        return this.autorRepository;
+    }
+
+    public void setAuditoriaRepository(AutoriaLibroRepository newAutoriaRepository){
+        this.autoriaRepository = newAutoriaRepository;
+    }
+
+    public void setAutorRepository(AutorRepository newAutorRepository){
+        this.autorRepository = newAutorRepository;
+    }
+
+    public void setLibroRepository(LibroRepository newLibroRepository){
+        this.libroRepository = newLibroRepository;
     }
 
     // Otros métodos de lógica

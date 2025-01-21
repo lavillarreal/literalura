@@ -1,33 +1,32 @@
  package com.alura.literalura.entity;
 
-import java.util.List;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "libros")
+@Table(name = "autoria_libro")
 public class AutoriaLibro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
-    @Column(name="libro_id", nullable = false)
+    @Column(name="libroid", nullable = false)
     private int libroId;
 
-    @Column(name = "autor_id", nullable = false)
-    private Long autorId;
+    @Column(name = "autorid", nullable = false)
+    private int autorId;
 
     public AutoriaLibro(){}
 
     // Constructor con parámetros (opcional)
-    public AutoriaLibro(Long newAutorId, int newLibroId) {
+    public AutoriaLibro(int newAutorId, int newLibroId) {
         this.autorId = newAutorId;
         this.libroId = newLibroId;
     }
 
     // Getters y Setters
 
-    public void setAutorId(Long newAutorId){
+    public void setAutorId(int newAutorId){
         this.autorId = newAutorId;
     }
 
@@ -39,7 +38,7 @@ public class AutoriaLibro {
         return libroId;
     }
 
-    public Long getAutorId(){
+    public int getAutorId(){
         return autorId;
     }
 

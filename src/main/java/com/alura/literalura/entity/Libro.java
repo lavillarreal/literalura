@@ -1,6 +1,12 @@
 package com.alura.literalura.entity;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import com.alura.literalura.repository.AutorRepository;
+import com.alura.literalura.repository.AutoriaLibroRepository;
+import com.alura.literalura.service.LiteraluraService;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -9,7 +15,7 @@ public class Libro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @Column(name="titulo", nullable = false, length = 255)
     private String titulo;
@@ -17,13 +23,13 @@ public class Libro {
     @Column(name="idioma", nullable = false, length = 2)
     private String idioma;
 
-    @Column(name="numero_descargas", nullable = false)
+    @Column(name="numerodescargas", nullable = false)
     private int numeroDescargas = 0;
 
-    @Column(name = "idRemoto", nullable = false)
-    private int idRemoto;
+    @Column(name = "idremoto", nullable = false)
+    private int idRemoto = 0;
 
-    @ElementCollection
+    @Transient
     private List<Autor> autores;
 
     public Libro() {}
@@ -38,11 +44,11 @@ public class Libro {
 
     // Getters y Setters
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -84,5 +90,33 @@ public class Libro {
 
     public void setIdRemoto(int newIdRemoto){
         idRemoto = newIdRemoto;
+    }
+
+    private List<Autor> getAutorsFromDB(AutoriaLibroRepository repository, AutorRepository autorRepository){
+        List<AutoriaLibro> autorias = repository.findByLibroId(this.getId());
+        if(!autorias.isEmpty()){
+            List<Autor> autores = new ArrayList<>();
+            for (AutoriaLibro autoria : autorias){
+                autores.add(autorRepository.findById(Long.parseLong(Integer.toString(autoria.getAutorId()))).isPresent() ? autorRepository.findById(Long.parseLong(Integer.toString(autoria.getAutorId()))).get() : new Autor() );
+            }
+            return autores;
+        }
+        return null;
+        
+    }
+
+    public List<Autor> getAuthors(LiteraluraService databaseContext){
+        return this.getAutorsFromDB(databaseContext.getAutoriaRepository(), databaseContext.getAutorRepository());
+    }
+
+    @Override
+    public String toString() {
+        return "\n\nLibro{" +
+                "id=" + id +
+                ", titulo='" + titulo + '\'' +
+                ", idioma='" + idioma + '\'' +
+                ", numeroDescargas=" + numeroDescargas +
+                ", idRemoto=" + idRemoto +
+                '}';
     }
 }

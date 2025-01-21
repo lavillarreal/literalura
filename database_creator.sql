@@ -1,4 +1,4 @@
--- Crear base de datos Literalura
+-- Crear usuario de DB literalura
 CREATE ROLE literalura WITH
 	LOGIN
 	NOSUPERUSER
@@ -10,7 +10,7 @@ CREATE ROLE literalura WITH
 	CONNECTION LIMIT 500
 	PASSWORD 'xxxxxx';
 
-
+-- Crear base de datos Literalura
 CREATE DATABASE literalura
     WITH
     OWNER = literalura
@@ -25,7 +25,7 @@ CREATE TABLE autores (
     id SERIAL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     apellido VARCHAR(100) NOT NULL,
-    birth INT NOT NULL,
+    birth INT NOT NULL DEFAULT 0,
     death INT NOT NULL DEFAULT 0
 );
 
@@ -33,17 +33,16 @@ CREATE TABLE autores (
 CREATE TABLE libros (
     id SERIAL PRIMARY KEY,
     titulo VARCHAR(255) NOT NULL,
-    idioma CHAR(2) NOT NULL,
-    numero_descargas INT DEFAULT 0
+    idioma VARCHAR(2) NOT NULL,
+    numeroDescargas INT DEFAULT 0,
+	idRemoto INT NOT NULL
 );
 
--- Tabla intermedia para la relación muchos a muchos entre libros y autores
-CREATE TABLE libros_autores (
-    libro_id INT NOT NULL,
-    autor_id INT NOT NULL,
-    PRIMARY KEY (libro_id, autor_id),
-    FOREIGN KEY (libro_id) REFERENCES libros(id) ON DELETE CASCADE,
-    FOREIGN KEY (autor_id) REFERENCES autores(id) ON DELETE CASCADE
+-- Tabla intermedia para la relación libros y autores
+CREATE TABLE autoria_libro (
+	id SERIAL PRIMARY KEY,
+    libroId INT NOT NULL,
+    autorId INT NOT NULL
 );
 
 GRANT ALL PRIVILEGES ON DATABASE literalura TO literalura;
@@ -52,7 +51,9 @@ GRANT ALL PRIVILEGES ON TABLE autores TO literalura;
 
 GRANT ALL PRIVILEGES ON TABLE libros TO literalura;
 
-ALTER TABLE libros_autores OWNER TO literalura;
+GRANT ALL PRIVILEGES ON TABLE autoria_libro TO literalura;
+
+ALTER TABLE autoria_libro OWNER TO literalura;
 
 ALTER TABLE autores OWNER TO literalura;
 
